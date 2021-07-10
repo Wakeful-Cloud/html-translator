@@ -29,10 +29,25 @@ const translate = require('@wakeful-cloud/html-translator'); //CommonJS
 
 //Translate
 const html = '<b>Bold text</b>';
-const markdown = translate(html); //"*Bold text*"
+const [markdown, images] = translate(html); //"*Bold text*"
+
+//Compose the embed
+const embed = new MessageEmbed({
+  title: 'Translator Test',
+  description: markdown,
+  color: '#005DAA'
+});
+
+//Add image
+if (images.length > 0)
+{
+  embed.image = {
+    url: images[0].src
+  };
+}
 
 //Send
-client.send(markdown);
+client.send(embed);
 ```
 *See [src/test.html](src/test.html) and [src/test.txt](src/test.txt) for a more complex example.*
 
