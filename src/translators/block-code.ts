@@ -3,7 +3,7 @@
  */
 
 //Imports
-import parse, {HTMLElement, NodeType} from "node-html-parser";
+import {HTMLElement, NodeType} from 'node-html-parser';
 import {Translator} from '../types';
 
 //Export
@@ -15,7 +15,7 @@ export default {
   translate: element =>
   {
     //Data
-    let code = element.text;
+    const code = element.text;
     let language = '';
 
     //Update language with parent lang
@@ -24,19 +24,11 @@ export default {
       language = element.getAttribute('lang')!;
     }
 
-    //Re-parse to catch nested code elements
-    const html = parse(element.text);
-
     //Nested code
-    for (const child of html.childNodes)
+    for (const child of element.childNodes)
     {
-      if (child.nodeType == NodeType.ELEMENT_NODE &&
-        (child as HTMLElement).tagName == 'CODE'
-      )
+      if (child.nodeType == NodeType.ELEMENT_NODE && (child as HTMLElement).tagName == 'CODE')
       {
-        //Update code
-        code = child.text;
-
         //Update language with child lang
         if ((child as HTMLElement).hasAttribute('lang'))
         {
@@ -45,11 +37,8 @@ export default {
       }
     }
 
-    //Trim code
-    code = code.trim();
-
     return {
-      markdown: `\`\`\`${language}\n${code}\n\`\`\``
+      markdown: `\`\`\`${language}\n${code.trim()}\n\`\`\``
     };
   }
 } as Translator;

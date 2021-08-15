@@ -4,6 +4,7 @@
 
 //Imports
 import {Translator} from '../types';
+import translate from '../translate';
 
 //Export
 export default {
@@ -12,7 +13,14 @@ export default {
     'INS',
     'U'
   ],
-  translate: element => ({
-    markdown: `__${element.structuredText}__`
-  })
+  translate: element =>
+  {
+    //Translate children
+    const {markdown, images} = translate(element, true);
+
+    return {
+      markdown: `__${markdown}__`,
+      images
+    };
+  }
 } as Translator;

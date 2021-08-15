@@ -5,6 +5,7 @@
 //Imports
 import test from 'ava';
 import translator from './table';
+import {options} from '../utils';
 import {parse, HTMLElement} from 'node-html-parser';
 
 //Data
@@ -31,7 +32,7 @@ test('translate bodiless table', ctx =>
     const raw = `<${tag}>${htmlRows}</${tag}>`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
     const {markdown} = translator.translate(html);
@@ -61,7 +62,7 @@ test('translate table with head and body', ctx =>
     const raw = `<${tag}>\n<thead>\n${htmlHead}\n</thead>\n<tbody>\n${htmlRows}\n</tbody>\n</${tag}>`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
     const {markdown} = translator.translate(html);
@@ -93,7 +94,7 @@ test('translate table with caption, head, and body', ctx =>
     const raw = `<${tag}>\n<caption>${caption}</caption\n<thead>\n${htmlHead}\n</thead>\n<tbody>\n${htmlRows}\n</tbody>\n</${tag}>`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
     const {markdown} = translator.translate(html);

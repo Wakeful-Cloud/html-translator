@@ -5,6 +5,7 @@
 //Imports
 import test from 'ava';
 import translator from './abbreviation';
+import {options} from '../utils';
 import {parse, HTMLElement} from 'node-html-parser';
 
 //Data
@@ -22,7 +23,7 @@ test('translate abbreviations without titles', ctx =>
     const raw = `<${tag}>${text}</${tag}>`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
     const {markdown} = translator.translate(html);
@@ -43,7 +44,7 @@ test('translate abbreviations with titles', ctx =>
     const raw = `<${tag} title="${title}">${text}</${tag}>`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
     const {markdown} = translator.translate(html);

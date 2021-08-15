@@ -6,19 +6,21 @@
 //Imports
 import _ from 'lodash';
 import commonjs from '@rollup/plugin-commonjs';
-import json from '@rollup/plugin-json';
-import resolve from '@rollup/plugin-node-resolve';
+import pkg from './package.json';
 import typescript from 'rollup-plugin-typescript2';
-import {terser} from 'rollup-plugin-terser';
+
+//External dependencies
+const external = Object.keys(pkg.dependencies);
 
 //Global build config
 const global = {
+  external,
   input: 'src/index.ts',
   plugins: [
     commonjs(),
-    json(),
-    typescript(),
-    terser()
+    typescript({
+      useTsconfigDeclarationDir: true
+    })
   ]
 };
 
@@ -26,7 +28,7 @@ const global = {
 const cjs = _.merge({
   output: [
     {
-      dir: 'dist/cjs',
+      file: 'dist/cjs.js',
       format: 'cjs',
       exports: 'default'
     }
@@ -36,24 +38,16 @@ const cjs = _.merge({
     'table'
   ]
 }, global);
-cjs.plugins.unshift(resolve({
-  browser: false,
-  preferBuiltins: true
-}));
 
 //ES
 const es = _.merge({
   output: [
     {
-      dir: 'dist/es',
+      file: 'dist/es.js',
       format: 'es'
     }
   ]
 }, global);
-es.plugins.unshift(resolve({
-  browser: true,
-  preferBuiltins: false
-}));
 
 //Export
 export default [cjs, es];

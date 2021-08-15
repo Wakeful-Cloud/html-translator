@@ -29,12 +29,12 @@ export interface TranslatorResult
   /**
    * Discord flavored markdown
    */
-  markdown?: string;
+  markdown: string;
 
   /**
    * Image
    */
-  image: Image;
+  images: Image[];
 }
 
 /**
@@ -55,5 +55,5 @@ export interface Translator
   /**
    * Element translator
    */
-  translate: (element: HTMLElement) => TranslatorResult;
+  translate: (element: HTMLElement) => Partial<TranslatorResult>;
 }

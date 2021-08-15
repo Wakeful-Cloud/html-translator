@@ -13,7 +13,7 @@ Translate [HTML5](https://developer.mozilla.org/en-US/docs/Glossary/HTML5) to [D
 ## Caveats
 * Ignores interactive elements (Buttons, inputs, switches, etc.)
 * Ignores CSS
-* Handles invalid HTML poorly
+* Poor invalid HTML support
 * Provides no sanitization
 
 ## Usage
@@ -29,7 +29,7 @@ const translate = require('@wakeful-cloud/html-translator'); //CommonJS
 
 //Translate
 const html = '<b>Bold text</b>';
-const [markdown, images] = translate(html); //"*Bold text*"
+const {markdown, images} = translate(html); //"*Bold text*"
 
 //Compose the embed
 const embed = new MessageEmbed({

@@ -4,6 +4,7 @@
 
 //Imports
 import {Translator} from '../types';
+import translate from '../translate';
 
 //Export
 export default {
@@ -13,6 +14,9 @@ export default {
   ],
   translate: element =>
   {
+    //Translate children
+    let {markdown, images} = translate(element, true);
+
     //Ensure the anchor has a hypertext reference
     if (!element.hasAttribute('href'))
     {
@@ -22,25 +26,20 @@ export default {
     //Get href
     const href = element.getAttribute('href')!;
 
-    //Get name
-    const name = element.structuredText;
-
-    //Generate markdown
-    let markdown: string;
-
     //URL-only anchors
-    if (name.length == 0)
+    if (markdown.length == 0)
     {
       markdown = `[${href}](${href})`;
     }
     //Named anchors
     else
     {
-      markdown = `[${name}](${href})`;
+      markdown = `[${markdown}](${href})`;
     }
 
     return {
-      markdown
+      markdown,
+      images
     };
   }
 } as Translator;

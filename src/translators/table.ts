@@ -89,11 +89,8 @@ export default {
       } : undefined
     });
 
-    //Remove trailing whitespace
-    markdown = markdown.trimRight();
-
-    //Wrap in code block
-    markdown = `\`\`\`\n${markdown}\n\`\`\``;
+    //Wrap in code block and trim
+    markdown = `\`\`\`\n${markdown.trimRight()}\n\`\`\``;
 
     return {
       markdown

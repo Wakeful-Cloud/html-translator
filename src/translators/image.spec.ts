@@ -5,6 +5,7 @@
 //Imports
 import test from 'ava';
 import translator from './image';
+import {options} from '../utils';
 import {parse, HTMLElement} from 'node-html-parser';
 
 //Data
@@ -22,15 +23,17 @@ test('translate image without alternate text', ctx =>
     const raw = `<${tag} src="${src}">`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
-    const {image} = translator.translate(html);
+    const {images} = translator.translate(html);
 
     //Assert
-    ctx.deepEqual(image, {
-      src
-    });
+    ctx.deepEqual(images, [
+      {
+        src
+      }
+    ]);
   }
 });
 
@@ -45,15 +48,17 @@ test('translate image with alternate text', ctx =>
     const raw = `<${tag} alt="${alt}" src="${src}">`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
-    const {image} = translator.translate(html);
+    const {images} = translator.translate(html);
 
     //Assert
-    ctx.deepEqual(image, {
-      alt,
-      src
-    });
+    ctx.deepEqual(images, [
+      {
+        alt,
+        src
+      }
+    ]);
   }
 });

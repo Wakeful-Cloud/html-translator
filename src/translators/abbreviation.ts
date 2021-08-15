@@ -4,6 +4,7 @@
 
 //Imports
 import {Translator} from '../types';
+import translate from '../translate';
 
 //Export
 export default {
@@ -13,17 +14,18 @@ export default {
   ],
   translate: element =>
   {
-    //Generate markdown
-    let markdown = element.structuredText;
+    //Translate children
+    let {markdown, images} = translate(element, true);
 
     //Add title
     if (element.hasAttribute('title'))
     {
-      markdown += ` (${element.getAttribute('title')})`;
+      markdown = `${markdown} (${element.getAttribute('title')})`;
     }
 
     return {
-      markdown
+      markdown,
+      images
     };
   }
 } as Translator;

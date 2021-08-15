@@ -5,6 +5,7 @@
 //Imports
 import test from 'ava';
 import translator from './anchor';
+import {options} from '../utils';
 import {parse, HTMLElement} from 'node-html-parser';
 
 //Data
@@ -22,7 +23,7 @@ test('translate anchors without names', ctx =>
     const raw = `<${tag} href="${href}"></${tag}>`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
     const {markdown} = translator.translate(html);
@@ -43,7 +44,7 @@ test('translate anchors with names', ctx =>
     const raw = `<${tag} href="${href}">${name}</${tag}>`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
     const {markdown} = translator.translate(html);

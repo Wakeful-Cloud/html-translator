@@ -5,6 +5,7 @@
 //Imports
 import test from 'ava';
 import translator from './inline-quote';
+import {options} from '../utils';
 import {parse, HTMLElement} from 'node-html-parser';
 
 //Data
@@ -22,7 +23,7 @@ test('translate inline-style quote without citation', ctx =>
     const raw = `<${tag}>${quote}</${tag}>`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
     const {markdown} = translator.translate(html);
@@ -43,7 +44,7 @@ test('translate inline-style quote with citation', ctx =>
     const raw = `<${tag} cite="${citation}">${quote}</${tag}>`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
     const {markdown} = translator.translate(html);

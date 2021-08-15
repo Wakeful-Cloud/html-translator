@@ -13,11 +13,8 @@ export default {
   ],
   translate: element =>
   {
-    //Generate markdown
-    let markdown = element.text;
-
     //Prepend each line with "> "
-    markdown = markdown.split(/[\r\n]{1,2}/)
+    let markdown = element.text.split(/[\r\n]{1,2}/)
     .map(line => line.trim())
     .filter(line => line.length > 0)
     .map(line => `> ${line}`)

@@ -3,6 +3,7 @@
  */
 
 //Imports
+import translate from '../translate';
 import {Translator} from '../types';
 
 //Export
@@ -11,7 +12,14 @@ export default {
   tags: [
     'DEL'
   ],
-  translate: element => ({
-    markdown: `~~${element.structuredText}~~`
-  })
+  translate: element =>
+  {
+    //Translate children
+    const {markdown, images} = translate(element, true);
+
+    return {
+      markdown: `~~${markdown}~~`,
+      images
+    };
+  }
 } as Translator;

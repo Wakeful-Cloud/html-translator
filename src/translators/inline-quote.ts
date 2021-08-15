@@ -4,6 +4,7 @@
 
 //Imports
 import {Translator} from '../types';
+import translate from '../translate';
 
 //Export
 export default {
@@ -13,11 +14,8 @@ export default {
   ],
   translate: element =>
   {
-    //Generate markdown
-    let markdown = element.structuredText;
-
-    //Trim whitespace
-    markdown = markdown.trim();
+    //Translate children
+    let {markdown, images} = translate(element, true);
 
     //Wrap in inline code
     markdown = `\`${markdown}\``;
@@ -28,8 +26,12 @@ export default {
       markdown += ` ([Source](${element.getAttribute('cite')}))`;
     }
 
+    //Trim whitespace
+    markdown = markdown.trim();
+
     return {
-      markdown
+      markdown,
+      images
     };
   }
 } as Translator;

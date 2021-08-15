@@ -5,6 +5,7 @@
 //Imports
 import test from 'ava';
 import translator from './line-break';
+import {options} from '../utils';
 import {parse, HTMLElement} from 'node-html-parser';
 
 test('translate line breaks', ctx =>
@@ -18,7 +19,7 @@ test('translate line breaks', ctx =>
     const raw = `<${tag}><${tag}/><${tag} />`;
 
     //Parse
-    const html = parse(raw);
+    const html = parse(raw, options);
 
     for (const child of html.childNodes)
     {

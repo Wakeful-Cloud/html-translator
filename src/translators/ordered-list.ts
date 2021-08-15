@@ -3,8 +3,9 @@
  */
 
 //Imports
-import {NodeType} from 'node-html-parser';
-import {Translator} from '../types';
+import {HTMLElement, NodeType} from 'node-html-parser';
+import {Image, Translator} from '../types';
+import translate from '../translate';
 
 //Export
 export default {
@@ -14,8 +15,9 @@ export default {
   ],
   translate: element =>
   {
-    //Generate markdown
+    //Generate content
     let markdown = '';
+    const images = [] as Image[];
 
     //Iterate over children
     let index = 1;
@@ -24,8 +26,14 @@ export default {
       //Only translate element nodes
       if (child.nodeType == NodeType.ELEMENT_NODE)
       {
+        //Translate the child
+        const {markdown: childMarkdown, images: childImages} = translate(child as HTMLElement, true);
+
         //Add the child
-        markdown += `${index}. ${child.text}\n`;
+        markdown += `${index}. ${childMarkdown}\n`;
+
+        //Add images
+        images.push(...childImages);
 
         //Advance the index
         index++;
@@ -36,7 +44,8 @@ export default {
     markdown = markdown.trimRight();
 
     return {
-      markdown
+      markdown,
+      images
     };
   }
 } as Translator;

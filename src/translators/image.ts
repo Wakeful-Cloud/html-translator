@@ -34,7 +34,9 @@ export default {
     }
 
     return {
-      image
+      images: [
+        image
+      ]
     };
   }
 } as Translator;

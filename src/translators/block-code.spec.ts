@@ -5,6 +5,7 @@
 //Imports
 import test from 'ava';
 import translator from './block-code';
+import {options} from '../utils';
 import {parse, HTMLElement} from 'node-html-parser';
 
 //Data
@@ -24,7 +25,7 @@ test('translate block-style code without a language', ctx =>
     const raw = `<${tag}>${code}</${tag}>`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
     const {markdown} = translator.translate(html);
@@ -45,7 +46,7 @@ test('translate block-style code with a language', ctx =>
     const raw = `<${tag} lang="${lang}">${code}</${tag}>`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
     const {markdown} = translator.translate(html);
@@ -61,7 +62,7 @@ test('translate nested block-style code with language in the parent', ctx =>
   const raw = `<pre lang="${lang}"><code>${code}</code></pre>`;
 
   //Parse
-  const html = parse(raw).childNodes[0] as HTMLElement;
+  const html = parse(raw, options).childNodes[0] as HTMLElement;
 
   //Translate
   const {markdown} = translator.translate(html);
@@ -76,7 +77,7 @@ test('translate nested block-style code with language in the child', ctx =>
   const raw = `<pre><code lang="${lang}">${code}</code></pre>`;
 
   //Parse
-  const html = parse(raw).childNodes[0] as HTMLElement;
+  const html = parse(raw, options).childNodes[0] as HTMLElement;
 
   //Translate
   const {markdown} = translator.translate(html);

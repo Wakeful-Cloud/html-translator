@@ -4,6 +4,7 @@
 
 //Imports
 import {Translator} from '../types';
+import translate from '../translate';
 
 //Export
 export default {
@@ -13,14 +14,15 @@ export default {
   ],
   translate: element =>
   {
-    //Generate markdown
-    let markdown = element.structuredText;
+    //Translate children
+    let {markdown, images} = translate(element, true);
 
     //Trim whitespace
     markdown = markdown.trim();
 
     return {
-      markdown
-    };
+      markdown,
+      images
+    }
   }
 } as Translator;

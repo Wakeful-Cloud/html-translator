@@ -5,6 +5,7 @@
 //Imports
 import test from 'ava';
 import translator from './description-list';
+import {options} from '../utils';
 import {parse, HTMLElement} from 'node-html-parser';
 
 //Data
@@ -29,7 +30,7 @@ test('translate description list', ctx =>
     const raw = `<${tag}>${htmlDescriptions}</${tag}>`;
 
     //Parse
-    const html = parse(raw).childNodes[0] as HTMLElement;
+    const html = parse(raw, options).childNodes[0] as HTMLElement;
 
     //Translate
     const {markdown} = translator.translate(html);
