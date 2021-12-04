@@ -1,6 +1,6 @@
 {
   "name": "@wakeful-cloud/html-translator",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Translate HTML5 to Discord flavored markdown",
   "main": "dist/cjs.js",
   "module": "dist/es.js",

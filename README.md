@@ -28,8 +28,8 @@ import translate from '@wakeful-cloud/html-translator'; //ES Modules
 const translate = require('@wakeful-cloud/html-translator'); //CommonJS
 
 //Translate
-const html = '<b>Bold text</b>';
-const {markdown, images} = translate(html); //"*Bold text*"
+const html = '<b>Bold text</b> followed with <i>italicized text</i>.';
+const {markdown, images} = translate(html); //"**Bold text** followed with *italicized text*."
 
 //Compose the embed
 const embed = new MessageEmbed({
