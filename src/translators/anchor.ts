@@ -8,7 +8,7 @@ import translate from '../translate';
 
 //Export
 export default {
-  inline: false,
+  inline: true,
   tags: [
     'A'
   ],

@@ -31,14 +31,14 @@ const translate = require('@wakeful-cloud/html-translator'); //CommonJS
 const html = '<b>Bold text</b> followed with <i>italicized text</i>.';
 const {markdown, images} = translate(html); //"**Bold text** followed with *italicized text*."
 
-//Compose the embed
+//Compose the embed (With DiscordJS)
 const embed = new MessageEmbed({
   title: 'Translator Test',
   description: markdown,
   color: '#005DAA'
 });
 
-//Add image
+//Add image (With DiscordJS)
 if (images.length > 0)
 {
   embed.image = {
@@ -46,7 +46,7 @@ if (images.length > 0)
   };
 }
 
-//Send
+//Send (With DiscordJS)
 client.send(embed);
 ```
 *See [src/test.html](src/test.html) and [src/test.txt](src/test.txt) for a more complex example.*
